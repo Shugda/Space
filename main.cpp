@@ -21,31 +21,31 @@ void Draw()
 	glColor3f(1.0f,1.0f,1.0f);
 	glBegin(GL_QUADS);
 	{
-		glVertex3f(25.0f,25.0,-25.0);
-		glVertex3f(-25.0f,25.0,-25.0);
-		glVertex3f(25.0f,25.0,-25.0);
-		glVertex3f(25.0f,25.0,-25.0);
 		glVertex3f(25.0f,25.0,0.0);
-		glVertex3f(25.0f,25.0,0.0);
-		glVertex3f(25.0f,25.0,0.0);
-		glVertex3f(25.0f,25.0,0.0);
-		glVertex3f(25.0f,25.0,0.0);
-		glVertex3f(25.0f,25.0,0.0);
-		glVertex3f(25.0f,25.0,0.0);
-		glVertex3f(25.0f,25.0,0.0);
-		glVertex3f(25.0f,25.0,0.0);
-		glVertex3f(25.0f,25.0,0.0);
-		glVertex3f(25.0f,25.0,0.0);
-		glVertex3f(25.0f,25.0,0.0);
-		glVertex3f(25.0f,25.0,0.0);
-		glVertex3f(25.0f,25.0,0.0);
-		glVertex3f(25.0f,25.0,0.0);
-		glVertex3f(25.0f,25.0,0.0);
-		glVertex3f(25.0f,25.0,0.0);
-		glVertex3f(25.0f,25.0,0.0);
-		glVertex3f(25.0f,25.0,0.0);
-		glVertex3f(25.0f,25.0,0.0);
+		glVertex3f(-25.0f,25.0,0.0);
+		glVertex3f(-25.0f,-25.0,0.0);
+		glVertex3f(25.0f,-25.0,0.0);
 
+		glVertex3f(25.0f,75.0,0.0);
+		glVertex3f(-25.0f,75.0,0.0);
+		glVertex3f(-25.0f,-75.0,0.0);
+		glVertex3f(25.0f,-75.0,0.0);
+		
+		glVertex3f(25.0f,125.0,0.0);
+		glVertex3f(-25.0f,125.0,0.0);
+		glVertex3f(-25.0f,-125.0,0.0);
+		glVertex3f(25.0f,-125.0,0.0);
+		
+		glVertex3f(25.0f,-25.0,0.0);
+		glVertex3f(-25.0f,-25.0,0.0);
+		glVertex3f(-25.0f,-75.0,0.0);
+		glVertex3f(25.0f,-75.0,0.0);
+		
+		glVertex3f(25.0f,-75.0,0.0);
+		glVertex3f(-25.0f,-75.0,0.0);
+		glVertex3f(-25.0f,-125.0,0.0);
+		glVertex3f(25.0f,-125.0,0.0);
+		
 	}
 	glEnd();
 
