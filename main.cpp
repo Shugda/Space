@@ -21,75 +21,44 @@ void Draw()
 	glColor3f(1.0f,1.0f,1.0f);
 	glBegin(GL_QUADS);
 	{
-		glVertex3f(25.0f,25.0,0.0);
-		glVertex3f(-25.0f,25.0,0.0);
-		glVertex3f(-25.0f,-25.0,0.0);
-		glVertex3f(25.0f,-25.0,0.0);
+		glVertex3f(25.0f,25.0,-25.0);
+		glVertex3f(-25.0f,25.0,-25.0);
+		glVertex3f(-25.0f,-25.0,-25.0);
+		glVertex3f(25.0f,-25.0,-25.0);
 
-		glVertex3f(25.0f,75.0,0.0);
-		glVertex3f(-25.0f,75.0,0.0);
-		glVertex3f(-25.0f,-75.0,0.0);
-		glVertex3f(25.0f,-75.0,0.0);
-		
-		glVertex3f(25.0f,125.0,0.0);
-		glVertex3f(-25.0f,125.0,0.0);
-		glVertex3f(-25.0f,-125.0,0.0);
-		glVertex3f(25.0f,-125.0,0.0);
-		
-		glVertex3f(25.0f,-25.0,0.0);
-		glVertex3f(-25.0f,-25.0,0.0);
-		glVertex3f(-25.0f,-75.0,0.0);
-		glVertex3f(25.0f,-75.0,0.0);
-		
-		glVertex3f(25.0f,-75.0,0.0);
-		glVertex3f(-25.0f,-75.0,0.0);
-		glVertex3f(-25.0f,-125.0,0.0);
-		glVertex3f(25.0f,-125.0,0.0);
-		
+		glColor3f(0,1,0);
+		glVertex3f(25.0f,25.0,25.0);
+		glVertex3f(-25.0f,25.0,25.0);
+		glVertex3f(-25.0f,-25.0,25.0);
+		glVertex3f(25.0f,-25.0,25.0);
+
+		glColor3f(0,0,1);
+		glVertex3f(-25.0f,25.0,25.0);
+		glVertex3f(-25.0f,25.0,-25.0);
+		glVertex3f(-25.0f,-25.0,-25.0);
+		glVertex3f(-25.0f,-25.0,25.0);
+
+		glColor3f(1,1,0);
+		glVertex3f(-25.0f,25.0,-25.0);
+		glVertex3f(-25.0f,25.0,25.0);
+		glVertex3f(25.0f,25.0,25.0);
+		glVertex3f(25.0f,25.0,-25.0);
+
+		glColor3f(1,0,1);
+		glVertex3f(25.0f,25.0,-25.0);
+		glVertex3f(25.0f,25.0,25.0);
+		glVertex3f(25.0f,-25.0,25.0);
+		glVertex3f(25.0f,-25.0,-25.0);
+
+		glColor3f(0,1,1);
+		glVertex3f(25.0f,-25.0,-25.0);
+		glVertex3f(-25.0f,-25.0,-25.0);
+		glVertex3f(-25.0f,-25.0,25.0);
+		glVertex3f(25.0f,-25.0,25.0);
+
 	}
 	glEnd();
 
-	/*glBegin(GL_QUADS);
-	{
-		for(float i =-windowwidth/2; i <= windowwidth/2; i+=5.0)
-		{
-		glVertex3f(-i,-25.0f,25.0f);
-		glVertex3f(i,-25.0f,25.0f);
-		glVertex3f(i,25.0f,25.0f);
-		glVertex3f(-i,25.0f,25.0f);
-		}
-		for(float i =-windowhigh/2; i <= windowhigh/2; i+=5.0)
-		{
-		glVertex3f(-25.0f,-i,-25.0f);
-		glVertex3f(25.0f,-i,-25.0f);
-		glVertex3f(25.0f,i,-25.0f);
-		glVertex3f(-25.0f,i,-25.0f);
-		}
-	}
-	glEnd();	*/
-		/*glVertex3f(-25.0f,-25.0f,-25.0f);
-		glVertex3f(25.0f,-25.0f,-25.0f);
-		glVertex3f(25.0f,25.0f,-25.0f);
-		glVertex3f(-25.0f,25.0f,-25.0f);
-		glVertex3f(-25.0f,-25.0f,25.0f);
-		glVertex3f( 25.0f,-25.0f,25.0f);
-		glVertex3f( 25.0f, 25.0f,25.0f);
-		glVertex3f( -25.0f, 25.0f,25.0f);*/
-
-	/*glBegin(GL_LINES);
-	{
-		for(float i =-windowwidth/2; i <= windowwidth/2; i+=10.0)
-		{
-			glVertex2f(i, -windowhigh/2);
-			glVertex2f(i, windowhigh/2);
-		}
-		for(float i =-windowhigh/2; i <= windowhigh/2; i+=10.0)
-		{
-			glVertex2f(-windowwidth/2, i);
-			glVertex2f(windowwidth/2, i);
-		}
-	}
-	glEnd();*/
 	glutSwapBuffers();
 }	
 
