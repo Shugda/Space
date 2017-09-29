@@ -62,7 +62,7 @@ void f()
 	glTexCoord2f(0.0, 1.0); glVertex3f(1.0,-1.0,0.7);
 	glEnd();
 
-	alpha+=1.0f;
+	alpha+=2.0f;
 
 	glutSwapBuffers();
 }
