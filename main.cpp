@@ -45,24 +45,26 @@ void load()
 
 void f()
 {
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glEnable(GL_TEXTURE_2D); 
-
+	glEnable(GL_DEPTH_TEST);
+//	glEnable(GL_BLEND);
+//	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+//	glEnable(GL_ALPHA_TEST);
 	glLoadIdentity();
 
-	gluLookAt(0.0f,0.0f,10.0f, 0.0f,0.0f,0.0f, 0.0f,1.0f,0.0f);
+	gluLookAt(0.0f,0.0f,50.0f, 0.0f,0.0f,0.0f, 0.0f,1.0f,0.0f);
 
 	glRotatef(alpha,0.0,1.0,0.0);
 
-	glBegin(GL_QUADS);
-	glTexCoord2f(0.0, 0.0); glVertex3f(-1.0,-1.0,0.7);
-	glTexCoord2f(1.0, 0.0); glVertex3f(-1.0,1.0,0.7);
-	glTexCoord2f(1.0, 1.0); glVertex3f(1.0,1.0,0.7);
-	glTexCoord2f(0.0, 1.0); glVertex3f(1.0,-1.0,0.7);
-	glEnd();
+	GLUquadricObj *gsea;
+	gsea = gluNewQuadric();
+	gluQuadricDrawStyle(gsea, GLU_FILL);
+	gluQuadricTexture(gsea,GL_TRUE);
+	gluSphere(gsea,10,10,10);
 
-	alpha+=2.0f;
+	alpha+=0.5f;	
 
 	glutSwapBuffers();
 }
@@ -73,7 +75,7 @@ int main(int argc, char** argv)
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowSize(400,400);
 	glutInitWindowPosition(200,100);
-	glutCreateWindow("Lesson 82");
+	glutCreateWindow("Sphere");
 
 	load();
 
