@@ -3,7 +3,7 @@
 #include "glcanvas.hpp"
 #include "stb_image.h"
 using namespace cnv;
-
+using namespace std;
 float alpha = 0.0f;
 
 void changeSize(int w, int h)
@@ -38,7 +38,7 @@ void load()
 	}
 	else
 	{
-		std::cout << "Failed to load texture" << std::endl;
+		cout << "Failed to load texture" << endl;
 	}
 	stbi_image_free(data);
 }
@@ -51,12 +51,15 @@ void f()
 	glEnable(GL_DEPTH_TEST);
 //	glEnable(GL_BLEND);
 //	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-//	glEnable(GL_ALPHA_TEST);
+	glEnable(GL_ALPHA_TEST);
 	glLoadIdentity();
 
-	gluLookAt(0.0f,0.0f,50.0f, 0.0f,0.0f,0.0f, 0.0f,1.0f,0.0f);
+	gluLookAt(0.0f,0.0f,70.0f, 0.0f,0.0f,0.0f, 0.0f,1.0f,0.0f);
 
-	glRotatef(alpha,0.0,1.0,0.0);
+	glRotatef(90,1.0,0.0,0.0);
+	glRotatef(alpha,0.0,0.0,1.0);
+
+	glTranslatef(20.0,0.0,0.0);
 
 	GLUquadricObj *gsea;
 	gsea = gluNewQuadric();
