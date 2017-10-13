@@ -18,7 +18,7 @@ void changeSize(int w, int h)
 	glutPostRedisplay();
 }
 
-const int textNumber = 2; // количество текстур
+const int textNumber = 3; // количество текстур
 class Textures // тут хранятся текстуры
 {
 public:
@@ -51,7 +51,7 @@ private:
 
 	unsigned char *data[textNumber]; // картинки
 	int width[textNumber], height[textNumber], nrChannels[textNumber]; // и их параметры
-	string files[textNumber] = {"back.jpg", "jj.jpg"}; // имена файлов
+	string files[textNumber] = {"jj.jpg", "back.jpg", "sun.jpg"}; // имена файлов
 };
 
 Textures texture;
@@ -70,21 +70,23 @@ void f()
 
 	glRotatef(90,1.0,0.0,0.0);
 	glRotatef(alpha,0.0,0.0,1.0);
-	glTranslatef(0.0,1.0,0.0);
-	glBindTexture(GL_TEXTURE_2D, texture.id[1]);
+	glTranslatef(0.0,3.0,0.0);
+	glBindTexture(GL_TEXTURE_2D, texture.id[0]);
 
 	GLUquadricObj *gsea;
 	gsea = gluNewQuadric();
 	gluQuadricDrawStyle(gsea, GLU_FILL);
 	gluQuadricTexture(gsea,GL_TRUE);
-	gluSphere(gsea,1,15,50);
+	gluSphere(gsea,0.1,15,50);
 	alpha+=0.5f;	
 
 	glPopMatrix(); // Земля end
 
 	glPushMatrix(); // Фон begin
 
-	glBindTexture(GL_TEXTURE_2D, texture.id[0]);
+	glRotatef(90,1.0,0.0,0.0);
+
+	glBindTexture(GL_TEXTURE_2D, texture.id[1]);
 	GLUquadricObj *gea;
 	gea = gluNewQuadric();
 	gluQuadricDrawStyle(gea, GLU_FILL);
@@ -93,6 +95,19 @@ void f()
 
 	glPopMatrix(); // Фон end
 
+	glPushMatrix(); // Солнце begin
+
+	glRotatef(90,1.0,0.0,0.0);
+
+	glBindTexture(GL_TEXTURE_2D, texture.id[2]);
+	GLUquadricObj *gean;
+	gean = gluNewQuadric();
+	gluQuadricDrawStyle(gean, GLU_FILL);
+	gluQuadricTexture(gean,GL_TRUE);
+	gluSphere(gean,0.8,15,50);
+
+	glPopMatrix(); // Солнце end
+
 	glutSwapBuffers();
 }
 
@@ -100,7 +115,7 @@ int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);	
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
-	glutInitWindowSize(800,800);
+	glutInitWindowSize(300,300);
 	glutInitWindowPosition(200,100);
 	glutCreateWindow("Sphere");
 
