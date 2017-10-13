@@ -18,56 +18,80 @@ void changeSize(int w, int h)
 	glutPostRedisplay();
 }
 
-void load()
+const int textNumber = 2; // количество текстур
+class Textures // тут хранятся текстуры
 {
-	unsigned int texture;
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	// set the texture wrapping/filtering options (on the currently bound texture object)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// load and generate the texture
-	int width, height, nrChannels;
-	unsigned char *data = stbi_load("jj.jpg", &width, &height, &nrChannels, 0);
-	if (data)
+public:
+	unsigned int id[textNumber]; // массив ID текстур
+
+	void init() 
 	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+		for (int i = 0; i < textNumber; ++i)
+			load(i);
+	}
+
+private:
+	void load(int pic) // загрузка текстуры
+	{
+		data[pic] = stbi_load(files[pic].c_str(), &width[pic], &height[pic], &nrChannels[pic], 0);
+
+		glGenTextures(1, &id[pic]);
+		glBindTexture(GL_TEXTURE_2D, id[pic]);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width[pic], height[pic], 0, GL_RGB, GL_UNSIGNED_BYTE, data[pic]);
 		glGenerateMipmap(GL_TEXTURE_2D);
+
+		stbi_image_free(data[pic]);
 	}
-	else
-	{
-		cout << "Failed to load texture" << endl;
-	}
-	stbi_image_free(data);
-}
+
+	unsigned char *data[textNumber]; // картинки
+	int width[textNumber], height[textNumber], nrChannels[textNumber]; // и их параметры
+	string files[textNumber] = {"back.jpg", "jj.jpg"}; // имена файлов
+};
+
+Textures texture;
 
 void f()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	glEnable(GL_TEXTURE_2D); 
 	glEnable(GL_DEPTH_TEST);
-//	glEnable(GL_BLEND);
-//	glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 	glEnable(GL_ALPHA_TEST);
+	glEnable(GL_TEXTURE_2D); 
 	glLoadIdentity();
 
-	gluLookAt(0.0f,0.0f,70.0f, 0.0f,0.0f,0.0f, 0.0f,1.0f,0.0f);
+	gluLookAt(0.0f,0.0f,5.0f, 0.0f,0.0f,0.0f, 0.0f,1.0f,0.0f);
+
+	glPushMatrix(); // Земля begin
 
 	glRotatef(90,1.0,0.0,0.0);
 	glRotatef(alpha,0.0,0.0,1.0);
-
-	glTranslatef(20.0,0.0,0.0);
+	glTranslatef(0.0,1.0,0.0);
+	glBindTexture(GL_TEXTURE_2D, texture.id[1]);
 
 	GLUquadricObj *gsea;
 	gsea = gluNewQuadric();
 	gluQuadricDrawStyle(gsea, GLU_FILL);
 	gluQuadricTexture(gsea,GL_TRUE);
-	gluSphere(gsea,10,10,10);
-
+	gluSphere(gsea,1,15,50);
 	alpha+=0.5f;	
+
+	glPopMatrix(); // Земля end
+
+	glPushMatrix(); // Фон begin
+
+	glBindTexture(GL_TEXTURE_2D, texture.id[0]);
+	GLUquadricObj *gea;
+	gea = gluNewQuadric();
+	gluQuadricDrawStyle(gea, GLU_FILL);
+	gluQuadricTexture(gea,GL_TRUE);
+	gluSphere(gea,50,15,50);
+
+	glPopMatrix(); // Фон end
 
 	glutSwapBuffers();
 }
@@ -76,11 +100,11 @@ int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);	
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
-	glutInitWindowSize(400,400);
+	glutInitWindowSize(800,800);
 	glutInitWindowPosition(200,100);
 	glutCreateWindow("Sphere");
 
-	load();
+	texture.init();
 
 	glutDisplayFunc(f);
 	glutIdleFunc(f);
