@@ -18,7 +18,8 @@ void changeSize(int w, int h)
 	glutPostRedisplay();
 }
 
-const int textNumber = 3; // количество текстур
+const int textNumber = 7; // количество текстур
+
 class Textures // тут хранятся текстуры
 {
 public:
@@ -51,7 +52,7 @@ private:
 
 	unsigned char *data[textNumber]; // картинки
 	int width[textNumber], height[textNumber], nrChannels[textNumber]; // и их параметры
-	string files[textNumber] = {"jj.jpg", "back.jpg", "sun.jpg"}; // имена файлов
+	string files[textNumber] = {"back.jpg","sun.jpg","mercury.jpg","venere.jpg","jj.jpg","mars.jpg","jupiter.jpg"}; 
 };
 
 Textures texture;
@@ -66,47 +67,102 @@ void f()
 
 	gluLookAt(0.0f,0.0f,5.0f, 0.0f,0.0f,0.0f, 0.0f,1.0f,0.0f);
 
-	glPushMatrix(); // Земля begin
-
-	glRotatef(90,1.0,0.0,0.0);
-	glRotatef(alpha,0.0,0.0,1.0);
-	glTranslatef(0.0,3.0,0.0);
-	glBindTexture(GL_TEXTURE_2D, texture.id[0]);
-
-	GLUquadricObj *gsea;
-	gsea = gluNewQuadric();
-	gluQuadricDrawStyle(gsea, GLU_FILL);
-	gluQuadricTexture(gsea,GL_TRUE);
-	gluSphere(gsea,0.1,15,50);
-	alpha+=0.5f;	
-
-	glPopMatrix(); // Земля end
-
 	glPushMatrix(); // Фон begin
-
 	glRotatef(90,1.0,0.0,0.0);
 
-	glBindTexture(GL_TEXTURE_2D, texture.id[1]);
-	GLUquadricObj *gea;
-	gea = gluNewQuadric();
-	gluQuadricDrawStyle(gea, GLU_FILL);
-	gluQuadricTexture(gea,GL_TRUE);
-	gluSphere(gea,50,15,50);
-
+	glBindTexture(GL_TEXTURE_2D, texture.id[0]);
+	GLUquadricObj *texture_0;
+	texture_0 = gluNewQuadric();
+	gluQuadricDrawStyle(texture_0, GLU_FILL);
+	gluQuadricTexture(texture_0,GL_TRUE);
+	gluSphere(texture_0,50,15,50);
 	glPopMatrix(); // Фон end
 
 	glPushMatrix(); // Солнце begin
-
 	glRotatef(90,1.0,0.0,0.0);
 
-	glBindTexture(GL_TEXTURE_2D, texture.id[2]);
-	GLUquadricObj *gean;
-	gean = gluNewQuadric();
-	gluQuadricDrawStyle(gean, GLU_FILL);
-	gluQuadricTexture(gean,GL_TRUE);
-	gluSphere(gean,0.8,15,50);
-
+	glBindTexture(GL_TEXTURE_2D, texture.id[1]);
+	GLUquadricObj *texture_1;
+	texture_1 = gluNewQuadric();
+	gluQuadricDrawStyle(texture_1, GLU_FILL);
+	gluQuadricTexture(texture_1,GL_TRUE);
+	gluSphere(texture_1,0.4,10,50);
 	glPopMatrix(); // Солнце end
+
+	glPushMatrix(); // Меркурий begin
+	glRotatef(90,1.0,0.0,0.0);
+	glRotatef(alpha,0.0,0.0,1.0);
+	glTranslatef(0.0,0.5,0.0);
+	glBindTexture(GL_TEXTURE_2D, texture.id[2]);
+
+	GLUquadricObj *texture_2;
+	texture_2 = gluNewQuadric();
+	gluQuadricDrawStyle(texture_2, GLU_FILL);
+	gluQuadricTexture(texture_2,GL_TRUE);
+	gluSphere(texture_2,0.05,15,50);
+
+	alpha+=0.1f;	
+	glPopMatrix(); // Меркурий end
+
+	glPushMatrix(); // Венера begin
+	glRotatef(90,1.0,0.0,0.0);
+	glRotatef(alpha,0.0,0.0,1.0);
+	glTranslatef(0.0,0.6,0.0);
+	glBindTexture(GL_TEXTURE_2D, texture.id[3]);
+
+	GLUquadricObj *texture_3;
+	texture_3 = gluNewQuadric();
+	gluQuadricDrawStyle(texture_3, GLU_FILL);
+	gluQuadricTexture(texture_3,GL_TRUE);
+	gluSphere(texture_3,0.05,15,50);
+
+	alpha+=0.1f;	
+	glPopMatrix(); // Венера end
+
+	glPushMatrix(); // Земля begin
+	glRotatef(90,1.0,0.0,0.0);
+	glRotatef(alpha,0.0,0.0,1.0);
+	glTranslatef(0.0,0.7,0.0);
+	glBindTexture(GL_TEXTURE_2D, texture.id[4]);
+
+	GLUquadricObj *texture_4;
+	texture_4 = gluNewQuadric();
+	gluQuadricDrawStyle(texture_4, GLU_FILL);
+	gluQuadricTexture(texture_4,GL_TRUE);
+	gluSphere(texture_4,0.05,15,50);
+
+	alpha+=0.1f;	
+	glPopMatrix(); // Земля end
+
+	glPushMatrix(); // Марс begin
+	glRotatef(90,1.0,0.0,0.0);
+	glRotatef(alpha,0.0,0.0,1.0);
+	glTranslatef(0.0,0.8,0.0);
+	glBindTexture(GL_TEXTURE_2D, texture.id[5]);
+
+	GLUquadricObj *texture_5;
+	texture_5 = gluNewQuadric();
+	gluQuadricDrawStyle(texture_5, GLU_FILL);
+	gluQuadricTexture(texture_5,GL_TRUE);
+	gluSphere(texture_5,0.05,15,50);
+
+	alpha+=0.1f;	
+	glPopMatrix(); // Марс end
+
+	glPushMatrix(); // Юпитер begin
+	glRotatef(90,1.0,0.0,0.0);
+	glRotatef(alpha,0.0,0.0,1.0);
+	glTranslatef(0.0,0.9,0.0);
+	glBindTexture(GL_TEXTURE_2D, texture.id[6]);
+
+	GLUquadricObj *texture_6;
+	texture_6 = gluNewQuadric();
+	gluQuadricDrawStyle(texture_6, GLU_FILL);
+	gluQuadricTexture(texture_6,GL_TRUE);
+	gluSphere(texture_6,0.05,15,50);
+
+	alpha+=0.1f;	
+	glPopMatrix(); // Юпитер end
 
 	glutSwapBuffers();
 }
@@ -115,9 +171,9 @@ int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);	
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
-	glutInitWindowSize(300,300);
+	glutInitWindowSize(600,600);
 	glutInitWindowPosition(200,100);
-	glutCreateWindow("Sphere");
+	glutCreateWindow("Solar system");
 
 	texture.init();
 
