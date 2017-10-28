@@ -5,7 +5,9 @@
 using namespace cnv;
 using namespace std;
 float alpha = 0.0f;
-
+float alpha_1 = 0.0f;
+float lx = 0.0f, lz = -1.0f;
+float x = 0.0f, z = 5.0f;
 void changeSize(int w, int h)
 {
 	if (!h) h = 1;
@@ -52,7 +54,7 @@ private:
 
 	unsigned char *data[textNumber]; // картинки
 	int width[textNumber], height[textNumber], nrChannels[textNumber]; // и их параметры
-	string files[textNumber] = {"back.jpg","sun.jpg","mercury.jpg","venere.jpg","earth.jpg","mars.jpg","jupiter.jpg"}; 
+	string files[textNumber] = {"back.jpg","sun.jpg","mercury.jpg","venere.jpg","jj.jpg","mars.jpg","jupiter.jpg"}; 
 };
 
 Textures texture;
@@ -168,6 +170,31 @@ void Jupiter()
 	alpha+=0.1f;	
 	glPopMatrix(); // Юпитер end
 }
+void processSpecialKeys(int key, int xx, int yy)
+{
+	float fraction = 0.1f;
+	switch(key)
+	{		
+		case GLUT_KEY_LEFT:
+			alpha_1 -= 0.01f;
+			lx = sin(alpha_1);
+			lz = -cos(alpha_1);
+			break;
+		case GLUT_KEY_RIGHT:
+			alpha_1 += 0.01f;
+			lx = sin(alpha_1);
+			lz = -cos(alpha_1);
+			break;
+		case GLUT_KEY_UP:
+			x += lx*fraction;
+			z += lz*fraction;
+			break;
+		case GLUT_KEY_DOWN:
+			x -= lx*fraction;
+			z -= lz*fraction;
+			break;
+	}
+}
 
 void Vision(void)
 {
@@ -179,7 +206,7 @@ void Vision(void)
 
 	glLoadIdentity();
 
-	gluLookAt(0.0f,0.0f,5.0f, 0.0f,0.0f,0.0f, 0.0f,1.0f,0.0f);
+	gluLookAt(x,0.0f,z, x+lx,0.0f,x+lz, 0.0f,1.0f,0.0f);
 	glPushMatrix();
 	Space();
 	Sun();
@@ -206,6 +233,7 @@ int main(int argc, char** argv)
 	glutDisplayFunc(Vision);
 	glutIdleFunc(Vision);
 	glutReshapeFunc(changeSize);
+	glutSpecialFunc(processSpecialKeys);
 
 	glutMainLoop();
 }
