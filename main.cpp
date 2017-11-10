@@ -18,7 +18,7 @@ void changeSize(int w, int h)
 	glViewport(0, 0, w, h);
 	gluPerspective(45.0f, ratio, 0.1f, 100.0f);
 	glMatrixMode(GL_MODELVIEW);
-//	glutPostRedisplay();
+	glutPostRedisplay();
 }
 
 const int textNumber = 10; // количество текстур
@@ -37,7 +37,7 @@ public:
 private:
 	void load(int pic) // загрузка текстуры
 	{
-		data[pic] = stbi_load(files[pic].c_str(), &width[pic], &height[pic], &nrChannels[pic], 0);
+		data[pic] = stbi_load(files[pic].c_str(), &width[pic], &height[pic], &nrChannels[pic], STBI_rgb_alpha);
 
 		glGenTextures(1, &id[pic]);
 		glBindTexture(GL_TEXTURE_2D, id[pic]);
@@ -47,7 +47,7 @@ private:
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width[pic], height[pic], 0, GL_RGB, GL_UNSIGNED_BYTE, data[pic]);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width[pic], height[pic], 0, GL_RGB, GL_UNSIGNED_BYTE, data[pic]);
 		glGenerateMipmap(GL_TEXTURE_2D);
 
 		stbi_image_free(data[pic]);
