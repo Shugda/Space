@@ -2,6 +2,7 @@
 #define GL_GLEXT_PROTOTYPES
 #include "glcanvas.hpp"
 #include "stb_image.h"
+#include <ctime>
 using namespace cnv;
 using namespace std;
 float alpha = 0.0;
@@ -132,6 +133,17 @@ void moon()
 
 void Vision(void)
 {
+	// fps
+	static int timer = 0;
+	static time_t now = 0;
+	timer++;
+	if(time(0) != now)
+	{
+		cout << timer << endl;
+		timer = 0;
+		now = time(0);
+	}
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glEnable(GL_DEPTH_TEST);
@@ -160,8 +172,8 @@ void Vision(void)
 
 void tick(int)
 {
-	alpha += 1.2;
-	glutTimerFunc(20,tick,0);
+	alpha += 1;
+	glutTimerFunc(16,tick,0);
 	glutPostRedisplay();
 }
 
