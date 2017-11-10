@@ -4,8 +4,8 @@
 #include "stb_image.h"
 using namespace cnv;
 using namespace std;
-float alpha = 0.0f;
-float angel = 0.0f;
+float alpha = 0.0;
+float angle = 0.0;
 float lx = 0.0f, lz = -1.0f;
 float x = 0.0f, z = 5.0f;
 void changeSize(int w, int h)
@@ -17,10 +17,10 @@ void changeSize(int w, int h)
 	glViewport(0, 0, w, h);
 	gluPerspective(45.0f, ratio, 0.1f, 100.0f);
 	glMatrixMode(GL_MODELVIEW);
-	glutPostRedisplay();
+//	glutPostRedisplay();
 }
 
-const int textNumber = 7; // количество текстур
+const int textNumber = 10; // количество текстур
 
 class Textures // тут хранятся текстуры
 {
@@ -54,7 +54,7 @@ private:
 
 	unsigned char *data[textNumber]; // картинки
 	int width[textNumber], height[textNumber], nrChannels[textNumber]; // и их параметры
-	string files[textNumber] = {"back.jpg","sun.jpg","mercury.jpg","venere.jpg","jj.jpg","mars.jpg","jupiter.jpg"}; 
+	string files[textNumber] = {"back.jpg","sun.jpg","mercury.jpg","venere.jpg","jj.jpg","mars.jpg","jupiter.jpg","saturn.jpg","uran.jpg","neptun.jpg"}; 
 };
 
 Textures texture;
@@ -63,21 +63,21 @@ void processSpecialKeys(int key, int xx, int yy)
 	float fraction = 0.1f;
 	switch(key)
 	{		
-		case GLUT_KEY_LEFT:
-			angel -= 0.01f;
-			lx = sin(angel);
-			lz = -cos(angel);
+		case GLUT_KEY_LEFT :
+			angle -= 0.01f;
+			lx = sin(angle);
+			lz = -cos(angle);
 			break;
-		case GLUT_KEY_RIGHT:
-			angel += 0.01f;
-			lx = sin(angel);
-			lz = -cos(angel);
+		case GLUT_KEY_RIGHT :
+			angle += 0.01f;
+			lx = sin(angle);
+			lz = -cos(angle);
 			break;
-		case GLUT_KEY_UP:
+		case GLUT_KEY_UP :
 			x += lx*fraction;
 			z += lz*fraction;
 			break;
-		case GLUT_KEY_DOWN:
+		case GLUT_KEY_DOWN :
 			x -= lx*fraction;
 			z -= lz*fraction;
 			break;
@@ -94,7 +94,6 @@ void Space()
 	gluQuadricTexture(texture,GL_TRUE);
 	gluSphere(texture,50.0f,15,50);
 	glPopMatrix();
-
 }
 void Sun()
 {
@@ -107,8 +106,6 @@ void Sun()
 	gluQuadricTexture(texture,GL_TRUE);
 	gluSphere(texture,0.4f,15,50);
 	glPopMatrix();
-
-
 }
 void planet(float pos, float size,int id)
 {
@@ -122,8 +119,15 @@ void planet(float pos, float size,int id)
 	gluQuadricDrawStyle(texture, GLU_FILL);
 	gluQuadricTexture(texture,GL_TRUE);
 	gluSphere(texture,size,15,50);
-	alpha += 0.1f;
 	glPopMatrix();
+}
+void moon()
+{
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glLoadIdentity();
+	glRotatef(90,1.0f,0.0f,0.0f);
+
+	glutSwapBuffers();
 }
 
 void Vision(void)
@@ -145,10 +149,20 @@ void Vision(void)
 	planet(0.6f,0.05f,3); // Венера
 	planet(0.7f,0.05f,4); // Земля
 	planet(0.8f,0.05f,5); // Марс
-	planet(0.9f,0.05f,6);	// Юпитер
+	planet(0.9f,0.05f,6); // Юпитер
+	planet(1.0f,0.05f,7); // Сатурн
+	planet(1.1f,0.05f,8); // Уран
+	planet(1.2f,0.05f,9); // Нептун
 	glPopMatrix();
 
 	glutSwapBuffers();
+}
+
+void tick(int)
+{
+	alpha += 1.2;
+	glutTimerFunc(20,tick,0);
+	glutPostRedisplay();
 }
 
 int main(int argc, char** argv)
@@ -162,9 +176,11 @@ int main(int argc, char** argv)
 	texture.init();
 	
 	glutDisplayFunc(Vision);
-	glutIdleFunc(Vision);
 	glutReshapeFunc(changeSize);
 	glutSpecialFunc(processSpecialKeys);
+	
+	glEnable(GL_DEPTH_TEST);
+	tick(0);
 
 	glutMainLoop();
 }
