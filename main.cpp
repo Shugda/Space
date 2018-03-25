@@ -54,7 +54,7 @@ private:
 
 	unsigned char *data[textNumber]; // картинки
 	int width[textNumber], height[textNumber], nrChannels[textNumber]; // и их параметры
-	string files[textNumber] = {"back.jpg","sun.jpg","mercury.jpg","venere.jpg","jj.jpg","mars.jpg","jupiter.jpg","saturn.jpg","uran.jpg","neptun.jpg","pluton.jpg"}; 
+	string files[textNumber] = {"back.jpg","sun.jpg","mercury.jpg","venere.jpg","jj.jpg","mars.jpg","jupiter.jpg","saturn.jpg","uran.jpg","neptun.jpg","moon.jpg"}; 
 };
 
 Textures texture;
@@ -108,6 +108,24 @@ void Sun()
 	gluSphere(texture,1.092f,15,50);
 	glPopMatrix();
 }
+void moon()
+{
+	const float r=2.7845f;
+	float fraction = 0.01f;
+	// y = z
+	glPushMatrix();
+	glRotatef(90,1.0f,0.0f,0.0f);
+	glTranslatef(r*sin(-alpha*fraction),r*cos(-alpha*fraction),0.0f);
+	glRotatef(alpha,0.0f,0.0f,1.0f);
+//	glTranslatef(0.0f,0.000f,0.0f);
+	glBindTexture(GL_TEXTURE_2D, texture.id[10]);
+	GLUquadricObj *texture;
+	texture = gluNewQuadric();
+	gluQuadricDrawStyle(texture, GLU_FILL);
+	gluQuadricTexture(texture,GL_TRUE);
+	gluSphere(texture,0.002f,30,50);
+	glPopMatrix();
+}
 void planet(float pos, float size,int id)
 {
 	glPushMatrix();
@@ -122,22 +140,7 @@ void planet(float pos, float size,int id)
 	gluSphere(texture,size,30,50);
 	glPopMatrix();
 }
-/*
-void moon()
-{
-	glPushMatrix();
-	glRotatef(90,1.0f,0.0f,0.0f);
-	glRotatef(alpha,0.0f,0.0f,1.0f);
-	glTranslatef(0.0f,pos,0.0f);
-	glBindTexture(GL_TEXTURE_2D, texture.id[id]);
-	GLUquadricObj *texture;
-	texture = gluNewQuadric();
-	gluQuadricDrawStyle(texture, GLU_FILL);
-	gluQuadricTexture(texture,GL_TRUE);
-	gluSphere(texture,size,30,50);
-	glPopMatrix();
-}
-*/
+
 void Vision(void)
 {
 	const int r=5.0f;
@@ -165,16 +168,15 @@ void Vision(void)
 	glPushMatrix();
 	Space();
 	Sun();
-	planet(1.5322f,0.0038f,2); // Меркурий
-	planet(2.8653f,0.0095f,3); // Венера
-	planet(3.9585f,0.01f,4); // Земля
-	planet(6.0231f,0.0053f,5); // Марс
-	planet(20.6593f,0.1097f,6); // Юпитер
-	planet(37.9768f,0.0914f,7); // Сатурн
-	planet(47.9673f,0.0398f,8); // Уран
-	planet(75.0691f,0.0386f,9); // Нептун
-	planet(90.4992,0.0018f,10); // Плутон
-//	planet(40.574f,0.0018f,11); // Луна
+	planet(1.6868f,0.0038f,2); // Меркурий
+	planet(2.2857f,0.0095f,3); // Венера
+	planet(2.7745f,0.01f,4); // Земля
+	planet(3.6945f,0.0053f,5); // Марс
+	planet(10.5434f,0.1097f,6); // Юпитер
+	planet(17.9984f,0.0914f,7); // Сатурн
+	planet(33.821f,0.0398f,8); // Уран
+	planet(53.522f,0.0386f,9); // Нептун
+	moon();
 	glPopMatrix();
 
 	glutSwapBuffers();
