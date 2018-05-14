@@ -137,12 +137,12 @@ void Sun()
 	glPopMatrix();
 }
 
-void moon()
+void satellite(double r, double sz, int speed, int id)
 {
-	const double r = 2.7845f; // радиус орбиты Земли
+//	const double r = 2.7845f; // радиус орбиты планеты вокруг которой движется спутник 
 	const double fraction = -3.141592/180; // перевод градусов в радианы
-	const double sz = 0.002; // размер Луны
-	const int speed = 60; // скорость вращения
+//	const double sz = 0.002; // размер Спутника
+//	const int speed = 60; // скорость вращения
 
 	glPushMatrix();
 	glRotatef(90, 1.0f, 0.0f, 0.0f);
@@ -151,7 +151,7 @@ void moon()
 	glRotatef(speed*alpha, 0.0f, 0.0f, 1.0f);
 	glTranslatef(0.0f, 0.04, 0.0f);
 
-	glBindTexture(GL_TEXTURE_2D, texture.id[10]);
+	glBindTexture(GL_TEXTURE_2D, texture.id[id]);
 	GLUquadricObj *texture;
 	texture = gluNewQuadric();
 	gluQuadricDrawStyle(texture, GLU_FILL);
@@ -211,6 +211,12 @@ void text(string name)
 		cout << txt[offset+i] << endl;
 }
 
+void loadSatellites()
+{
+	satellite(2.7845f, 0.002, 60, 10); //Луна
+
+}
+
 void Vision()
 {
 	const int r=5.0f;
@@ -242,7 +248,7 @@ void Vision()
 	for (int i = 0; i < 8; ++i)
 		planet((Name)i);
 
-	moon();
+	loadSatellites();
 	glPopMatrix();
 	glutSwapBuffers();
 }
